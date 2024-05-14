@@ -6,8 +6,7 @@ from pathlib import Path
 from environ import Env
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-
-sys.path.insert(0, BASE_DIR / "mec_connect")
+sys.path.insert(0, str(BASE_DIR / "mec_connect"))
 
 env = Env()
 ENVIRONMENT = env.str("ENVIRONMENT", default="dev")
@@ -43,6 +42,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_extensions",
+] + [
+    "grist",
+    "main",
 ]
 
 MIDDLEWARE = [

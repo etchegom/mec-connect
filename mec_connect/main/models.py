@@ -5,8 +5,8 @@ from typing import Any, Self
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import models
 
-from mec_connect.models import BaseModel
-from mec_connect.utils import PrettyJSONEncoder
+from mec_connect.utils.json import PrettyJSONEncoder
+from mec_connect.utils.models import BaseModel
 
 from .choices import WebhookEventStatus
 
@@ -29,10 +29,12 @@ class WebhookEvent(BaseModel):
     )
 
     class Meta:
-        abstract = True
+        verbose_name = "Webhook Event"
+        verbose_name_plural = "Webhook Events"
+        db_table = "mec_webhookevent"
+        ordering = ("-created",)
 
     @classmethod
-    def create_from_request(cls, request: WSGIRequest, **kwarg: dict[str, Any]) -> Self:
-        """Create and process an Event given a Django request object."""
+    def create_from_request(cls, request: WSGIRequest, **kwargs: dict[str, Any]) -> Self:
         ip = request.META.get("REMOTE_ADDR", "0.0.0.0")
-        return cls.objects.create(remote_ip=ip, headers=dict(request.headers), **kwarg)
+        return cls.objects.create(remote_ip=ip, headers=dict(request.headers), **kwargs)
