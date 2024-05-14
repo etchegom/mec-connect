@@ -6,7 +6,7 @@ Les règles et standards de codage y sont décrits
 
 ## Installation
 
-La plateforme MEC-connect est open source et la gestion de version est assuré via Github. 
+La plateforme MEC-connect est open source et la gestion de version est assuré via Github.
 La première étape est donc de cloner ce repository github.
 
 ### Prérequis

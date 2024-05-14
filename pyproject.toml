@@ -19,6 +19,10 @@ pytest = "^8.2.0"
 pytest-django = "^4.8.0"
 celery = "^5.4.0"
 redis = "^5.0.4"
+django-model-utils = "^4.5.1"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.4.4"
 
 [build-system]
 requires = ["poetry-core"]
@@ -28,17 +32,13 @@ build-backend = "poetry.core.masonry.api"
 DJANGO_SETTINGS_MODULE = "mec_connect.settings.testing"
 python_files = ["test_*.py"]
 
-[tool.black]
-line-length = 100
-skip-magic-trailing-comma = false
-exclude = '''
-/(
-    \.git
-  | \.venv
-)/
-'''
-
 [tool.ruff]
+line-length = 100
+show-fixes = true
+target-version = "py312"
+exclude = [".venv"]
+
+[tool.ruff.lint]
 select = [
     "F",   # Pyflakes
     "E",   # pycodestyle
@@ -58,16 +58,18 @@ select = [
     "PGH", # pygrep-hooks
     "INP", # flake8-no-pep420
 ]
-line-length = 100
-show-fixes = true
-fixable = ["ALL"]
 unfixable = ["B"]
-target-version = "py312"
-exclude = [".venv"]
+
+[tool.ruff.lint.extend-per-file-ignores]
+"__init__.py" = ["F401", "F403"]
+"sandbox/*" = ["T201", "T203"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
 
 [tool.ruff.isort]
 case-sensitive = true
-known-third-party = ["django", "environ", "factory", "ninja"]
+known-third-party = ["django", "environ", "factory", "model_utils", "ninja"]
 split-on-trailing-comma = true
 section-order = [
     "future",
@@ -76,4 +78,7 @@ section-order = [
     "first-party",
     "local-folder",
 ]
-required-imports = ["from __future__ import annotatios"]
+required-imports = ["from __future__ import annotations"]
+
+[tool.ruff.format]
+skip-magic-trailing-comma = false

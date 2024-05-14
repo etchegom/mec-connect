@@ -1,6 +1,8 @@
-import httpx
+from __future__ import annotations
+
 from pprint import pprint
 
+import httpx
 
 api_base_url = "http://monespacecollectivite.localhost:8000/api"
 
@@ -15,8 +17,6 @@ resp = httpx.post(
 assert resp.status_code == 200, f"status_code: {resp.status_code}"
 token = resp.json()["access"]
 
-resp = httpx.get(
-    f"{api_base_url}/projects/", headers={"Authorization": f"Bearer {token}"}
-)
+resp = httpx.get(f"{api_base_url}/projects/", headers={"Authorization": f"Bearer {token}"})
 assert resp.status_code == 200, f"status_code: {resp.status_code}"
 pprint(resp.json())

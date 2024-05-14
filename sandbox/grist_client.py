@@ -1,15 +1,15 @@
 """
-http http://localhost:8484/api/orgs Authorization:"Bearer 8df9b5f7bbddae96d757761ddfd9fdeaa6355814"
-http http://localhost:8484/api/orgs/2/workspaces Authorization:"Bearer 8df9b5f7bbddae96d757761ddfd9fdeaa6355814"
-http http://localhost:8484/api/workspaces/2/docs Authorization:"Bearer 8df9b5f7bbddae96d757761ddfd9fdeaa6355814"
-http POST http://localhost:8484/api/workspaces/2/docs Authorization:"Bearer 8df9b5f7bbddae96d757761ddfd9fdeaa6355814" name=test isPinned=true
-http http://localhost:8484/api/workspaces/2/docs Authorization:"Bearer 8df9b5f7bbddae96d757761ddfd9fdeaa6355814"
-http http://localhost:8484/api/docs/77kBY7fjGaUXYkXtr4VbhM/tables Authorization:"Bearer 8df9b5f7bbddae96d757761ddfd9fdeaa6355814"
-http http://localhost:8484/api/docs/77kBY7fjGaUXYkXtr4VbhM/tables/Suivi_PTZC_MonEspaceCollectivite_Tableau_de_suivi/columns Authorization:"Bearer 8df9b5f7bbddae96d757761ddfd9fdeaa6355814"
+http http://localhost:8484/api/orgs Authorization:"Bearer XXX"
+http http://localhost:8484/api/orgs/2/workspaces Authorization:"Bearer XXX"
+http http://localhost:8484/api/workspaces/2/docs Authorization:"Bearer XXX"
+http POST http://localhost:8484/api/workspaces/2/docs Authorization:"Bearer XXX" name=test
+http http://localhost:8484/api/workspaces/2/docs Authorization:"Bearer XXX"
+http http://localhost:8484/api/docs/77kBY7fjGaUXYkXtr4VbhM/tables Authorization:"Bearer XXX"
 """
 
+from __future__ import annotations
+
 import httpx
-from pprint import pprint
 
 api_key = "8df9b5f7bbddae96d757761ddfd9fdeaa6355814"
 api_base_url = "http://localhost:8484/api"

@@ -1,6 +1,8 @@
-from pathlib import Path
+from __future__ import annotations
+
 import sys
-import os
+from pathlib import Path
+
 from environ import Env
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent

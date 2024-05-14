@@ -2,7 +2,6 @@
 
 SHELL := /bin/bash
 
-
 runserver:
 	@python manage.py runserver 0.0.0.0:8002
 
