@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+from django.urls import path
 from ninja import NinjaAPI
 
-from mec_connect.main.views import main_api_router
+from .views import router
 
 api = NinjaAPI(
     title="MEC Connect API",
@@ -12,4 +13,9 @@ api = NinjaAPI(
     docs_url="/docs",
     urls_namespace="api",
 )
-api.add_router("", main_api_router, tags=["MEC"])
+
+api.add_router("", router)
+
+urlpatterns = [
+    path("api/", api.urls),
+]

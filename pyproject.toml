@@ -65,13 +65,21 @@ unfixable = ["B"]
 "__init__.py" = ["F401", "F403"]
 "sandbox/*" = ["T201", "T203"]
 "settings/testing.py" = ["E402"]
+"**/migrations/*.py" = ["E501"]
 
 [tool.ruff.lint.mccabe]
 max-complexity = 10
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 case-sensitive = true
-known-third-party = ["django", "environ", "factory", "model_utils", "ninja"]
+known-third-party = [
+    "django",
+    "environ",
+    "factory",
+    "model_utils",
+    "model_utils",
+    "ninja",
+]
 split-on-trailing-comma = true
 section-order = [
     "future",

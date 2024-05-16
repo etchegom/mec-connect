@@ -8,3 +8,7 @@ class WebhookEventStatus(models.TextChoices):
     PROCESSED = "PROCESSED", "Processed"
     INVALID = "INVALID", "Invalid"
     FAILED = "FAILED", "Failed"
+
+
+class ObjectType(models.TextChoices):
+    PROJECT = "projects.Project", "Project"

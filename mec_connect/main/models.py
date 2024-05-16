@@ -8,10 +8,28 @@ from django.db import models
 from mec_connect.utils.json import PrettyJSONEncoder
 from mec_connect.utils.models import BaseModel
 
-from .choices import WebhookEventStatus
+from .choices import ObjectType, WebhookEventStatus
 
 
 class WebhookEvent(BaseModel):
+    webhook_uuid = models.UUIDField()
+
+    topic = models.CharField(
+        max_length=32,
+        help_text="Topic of the webhook event",
+    )
+
+    object_id = models.CharField(
+        max_length=32,
+        help_text="ID of the object that triggered the webhook event",
+    )
+
+    object_type = models.CharField(
+        max_length=32,
+        choices=ObjectType.choices,
+        help_text="Type of the object that triggered the webhook event",
+    )
+
     remote_ip = models.GenericIPAddressField(help_text="IP address of the request client.")
     headers = models.JSONField(default=dict)
     payload = models.JSONField(default=dict, encoder=PrettyJSONEncoder)
@@ -31,7 +49,7 @@ class WebhookEvent(BaseModel):
     class Meta:
         verbose_name = "Webhook Event"
         verbose_name_plural = "Webhook Events"
-        db_table = "mec_webhookevent"
+        db_table = "webhookevent"
         ordering = ("-created",)
 
     @classmethod
