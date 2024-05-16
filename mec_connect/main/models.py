@@ -43,7 +43,8 @@ class WebhookEvent(BaseModel):
 
     exception = models.TextField(blank=True)
     traceback = models.TextField(
-        blank=True, help_text="Traceback if an exception was thrown during processing"
+        blank=True,
+        help_text="Traceback if an exception was thrown during processing",
     )
 
     class Meta:
@@ -54,5 +55,23 @@ class WebhookEvent(BaseModel):
 
     @classmethod
     def create_from_request(cls, request: WSGIRequest, **kwargs: dict[str, Any]) -> Self:
-        ip = request.META.get("REMOTE_ADDR", "0.0.0.0")
-        return cls.objects.create(remote_ip=ip, headers=dict(request.headers), **kwargs)
+        return cls.objects.create(
+            remote_ip=request.META.get("REMOTE_ADDR", "0.0.0.0"),
+            headers=dict(request.headers),
+            **kwargs,
+        )
+
+
+class GristConfig(BaseModel):
+    doc_id = models.CharField(max_length=32)
+    enabled = models.BooleanField(default=True)
+    object_type = models.CharField(max_length=32, choices=ObjectType.choices)
+
+    api_base_url = models.CharField(max_length=128)
+    api_key = models.CharField(max_length=64)
+
+    class Meta:
+        db_table = "gristconfig"
+        ordering = ("-created",)
+        verbose_name = "Grist configuration"
+        verbose_name_plural = "Grist configurations"

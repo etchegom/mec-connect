@@ -7,6 +7,7 @@ from ninja import Schema
 
 class WebhookEventObjectSchema(Schema):
     id: int
+    name: str
     created_on: datetime
     updated_on: datetime
 
