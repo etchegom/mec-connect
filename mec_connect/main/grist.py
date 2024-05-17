@@ -47,12 +47,20 @@ class GristClient:
                 f"docs/{self.doc_id}/tables/{table_id}/records/",
                 params={"filter": json.dumps(filter)},
             )
-            return resp.json()["records"]
+            return resp.json()
 
-    def create_records(self, table_id: str, fields: dict[str, Any]) -> dict[str, Any]:
+    def create_records(self, table_id: str, records: list[dict[str, Any]]) -> dict[str, Any]:
         with self.client_factory() as client:
             resp = client.post(
                 f"docs/{self.doc_id}/tables/{table_id}/records/",
-                json={"records": [{"fields": fields}]},
+                json={"records": [{"fields": r} for r in records]},
+            )
+            return resp.json()
+
+    def update_records(self, table_id: str, records: dict[str, dict[str, Any]]) -> dict[str, Any]:
+        with self.client_factory() as client:
+            resp = client.patch(
+                f"docs/{self.doc_id}/tables/{table_id}/records/",
+                json={"records": [{"id": k, "fields": v} for k, v in records.items()]},
             )
             return resp.json()

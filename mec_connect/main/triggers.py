@@ -11,7 +11,6 @@ def on_webhook_event_commit(event: WebhookEvent) -> None:
 
     match event.object_type:
         case ObjectType.PROJECT:
-            print(">" * 100)
             sync_grist_table.delay(event.id)
         case _:
             pass
