@@ -77,7 +77,6 @@ known-third-party = [
     "environ",
     "factory",
     "model_utils",
-    "model_utils",
     "ninja",
 ]
 split-on-trailing-comma = true
