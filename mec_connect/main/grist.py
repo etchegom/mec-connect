@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from dataclasses import dataclass
 from typing import Any, Self
 
 import httpx
@@ -64,3 +65,16 @@ class GristClient:
                 json={"records": [{"id": k, "fields": v} for k, v in records.items()]},
             )
             return resp.json()
+
+
+@dataclass
+class GristProjectRow:
+    name: str
+    topics: str
+
+    @classmethod
+    def from_event_payload(cls, payload: dict[str, Any]) -> Self:
+        return GristProjectRow(
+            name=payload["object"]["name"],
+            topics=[t["name"] for t in payload["object"]["topics"]].join(", "),
+        )

@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+from dataclasses import asdict
+
 from celery import shared_task
 from celery.utils.log import get_task_logger
 
 from .choices import WebhookEventStatus
-from .grist import GristClient
+from .grist import GristClient, GristProjectRow
 from .models import GristConfig, WebhookEvent
 
 logger = get_task_logger(__name__)
@@ -25,18 +27,16 @@ def sync_grist_table(event_id: int):
         client = GristClient.from_config(grist_config)
         resp = client.get_records(
             table_id=table_id,
-            filter={"project_id": [event.object_id]},
+            filter={"id": [event.object_id]},
         )
 
-        records = resp.json()["records"]
-
-        if len(records):
+        if len(records := resp["records"]):
             client.update_records(
                 table_id="1",
                 records={
-                    records[0]["id"]: {
-                        "project_name": event.payload["object"]["name"],
-                    },
+                    records[0]["id"]: asdict(
+                        GristProjectRow.from_event_payload(payload=event.payload)
+                    ),
                 },
             )
             continue
@@ -44,8 +44,7 @@ def sync_grist_table(event_id: int):
         client.create_records(
             table_id=table_id,
             records=[
-                {"project_id": event.object_id},
-                {"project_name": event.payload["object"]["name"]},
+                asdict(GristProjectRow.from_event_payload(payload=event.payload)),
             ],
         )
 

@@ -6,7 +6,7 @@ runserver:
 	@python manage.py runserver 0.0.0.0:8002
 
 runworker:
-	@celery -A mec_connect.worker worker -l info
+	@celery -A mec_connect.worker worker -l info --concurrency=1
 
 precommit:
 	@pre-commit run --all-files
