@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import abc
 import json
 from dataclasses import dataclass
 from typing import Any, Self
@@ -67,8 +68,15 @@ class GristClient:
             return resp.json()
 
 
+class GristRowBase(abc.ABC):
+    @classmethod
+    @abc.abstractmethod
+    def from_payload_object(cls, obj: dict[str, Any]) -> Self:
+        pass
+
+
 @dataclass
-class GristProjectRow:
+class GristProjectRow(GristRowBase):
     name: str
     topics: str
 
