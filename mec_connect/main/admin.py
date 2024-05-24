@@ -17,6 +17,12 @@ class WebhookEventAdmin(admin.ModelAdmin):
         "created",
     )
 
+    list_filter = (
+        "topic",
+        "object_type",
+        "status",
+    )
+
 
 @admin.register(GristConfig)
 class GristConfigAdmin(admin.ModelAdmin):
@@ -24,6 +30,11 @@ class GristConfigAdmin(admin.ModelAdmin):
         "id",
         "api_key",
         "api_base_url",
+        "enabled",
+        "object_type",
+    )
+
+    list_filter = (
         "enabled",
         "object_type",
     )

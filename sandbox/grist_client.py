@@ -86,7 +86,7 @@ resp = httpx.post(
     json={
         "columns": [
             {
-                "id": "id",
+                "id": "object_id",
                 "fields": {"label": "ID", "type": "Text"},
             },
             {
@@ -222,7 +222,7 @@ print(f"doc ID: {doc_id}")
 # print(resp.json())
 
 resp = httpx.get(
-    f"{api_base_url}/docs/{doc_id}/tables/1/records/?project_id=1",
+    f"{api_base_url}/docs/{doc_id}/tables/1/records/?object_id=1",
     headers=api_headers,
 )
 assert resp.status_code == 200

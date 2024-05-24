@@ -73,8 +73,8 @@ class GristProjectRow:
     topics: str
 
     @classmethod
-    def from_event_payload(cls, payload: dict[str, Any]) -> Self:
+    def from_payload_object(cls, obj: dict[str, Any]) -> Self:
         return GristProjectRow(
-            name=payload["object"]["name"],
-            topics=[t["name"] for t in payload["object"]["topics"]].join(", "),
+            name=obj["name"],
+            topics=", ".join(sorted([t["name"] for t in obj["topics"]])),
         )
