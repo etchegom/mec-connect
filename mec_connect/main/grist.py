@@ -43,6 +43,19 @@ class GristClient:
             event_hooks={"response": [raise_on_4xx_5xx]},
         )
 
+    def get_tables(self) -> dict[str, Any]:
+        with self.client_factory() as client:
+            resp = client.get(f"docs/{self.doc_id}/tables/")
+            return resp.json()
+
+    # def create_table(self, name: str, columns: dict[str, Any]) -> dict[str, Any]:
+    #     with self.client_factory() as client:
+    #         resp = client.post(
+    #             f"docs/{self.doc_id}/tables/",
+    #             json=[{"id": }]"name": name, "columns": columns},
+    #         )
+    #         return resp.json()
+
     def get_records(self, table_id: str, filter: dict[str, Any]) -> dict[str, Any]:
         with self.client_factory() as client:
             resp = client.get(

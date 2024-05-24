@@ -64,6 +64,7 @@ class WebhookEvent(BaseModel):
 
 class GristConfig(BaseModel):
     doc_id = models.CharField(max_length=32)
+    table_id = models.CharField(max_length=32)
     enabled = models.BooleanField(default=True)
     object_type = models.CharField(max_length=32, choices=ObjectType.choices)
 
