@@ -16,3 +16,6 @@ test:
 
 migrate:
 	@python manage.py migrate
+
+admin:
+	@xdg-open http://localhost:8002/admin

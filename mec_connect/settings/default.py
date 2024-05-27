@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_extensions",
+    "django_json_widget",
     "main",
 ]
 
@@ -107,3 +108,10 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_BROKER_URL = env.str("BROKER_URL")
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 CELERY_ALWAYS_EAGER = True
+
+#
+# Recoco
+#
+RECOCO_API_URL = env.str("RECOCO_API_URL")
+RECOCO_API_USERNAME = env.str("RECOCO_API_USERNAME")
+RECOCO_API_PASSWORD = env.str("RECOCO_API_PASSWORD")

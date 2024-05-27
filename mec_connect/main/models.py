@@ -67,6 +67,7 @@ class GristConfig(BaseModel):
     table_id = models.CharField(max_length=32)
     enabled = models.BooleanField(default=True)
     object_type = models.CharField(max_length=32, choices=ObjectType.choices)
+    columns = models.JSONField(default=dict, encoder=PrettyJSONEncoder)
 
     api_base_url = models.CharField(max_length=128)
     api_key = models.CharField(max_length=64)
@@ -76,3 +77,8 @@ class GristConfig(BaseModel):
         ordering = ("-created",)
         verbose_name = "Grist configuration"
         verbose_name_plural = "Grist configurations"
+
+    def clean(self) -> None:
+        # if self.columns ...
+        # raise ValidationError()
+        pass

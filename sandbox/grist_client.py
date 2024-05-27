@@ -114,7 +114,7 @@ resp = httpx.post(
                 "fields": {"label": "Périmètre", "type": "Text"},
             },
             {
-                "id": "diagnostic_ANCT",
+                "id": "diagnostic_anct",
                 "fields": {"label": "Diagnostic ANCT", "type": "Text"},
             },
             {

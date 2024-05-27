@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 from django.core.management.base import BaseCommand, CommandParser
-from main.grist import GristClient
+from main.grist import GristApiClient, GristProjectRow
 from main.models import GristConfig
+from main.recoco import RecocoApiClient
 
 
 class Command(BaseCommand):
@@ -27,7 +28,7 @@ class Command(BaseCommand):
             self.stdout.write(self.style.ERROR("Config is not enabled"))
             return 1
 
-        grist_client = GristClient.from_config(config)
+        grist_client = GristApiClient.from_config(config)
 
         response = grist_client.get_tables()
         for table in response["tables"]:
@@ -37,8 +38,12 @@ class Command(BaseCommand):
                 )
                 return
 
-        # create a new table
-        # fetch all projects from recoco
-        # fill the new table with the projects
-        # register the table ID in the config record
-        # trash the previous table
+        grist_client.create_table(table_id=config.table_id, columns=config.columns)
+
+        grist_client.create_records(
+            table_id=config.table_id,
+            records=[
+                GristProjectRow.from_payload_object(p).to_dict()
+                for p in RecocoApiClient().get_projects()
+            ],
+        )
